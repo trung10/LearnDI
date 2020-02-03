@@ -75,3 +75,19 @@ fun main() {
     jaz.run()
     //val gson = Gson()
 }
+
+interface Command{
+    /**
+     * - deposit
+     * - withdraw
+     */
+    fun key(): String
+
+    fun handleInput(input: List<String>): Status
+
+    enum class Status {
+        INVALID,
+        HANDLED
+    }
+}
+
