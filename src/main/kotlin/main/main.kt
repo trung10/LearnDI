@@ -64,30 +64,16 @@ interface BindingModule {
     modules = [MyModule::class,
         BindingModule::class]
 )
-
 interface MyConponent {
     fun barProvider(): Jazz
 }
 
-fun main() {
+/*fun main() {
     val myConponent: MyConponent = DaggerMyConponent.create()
     val jaz = myConponent.barProvider()
     jaz.run()
     //val gson = Gson()
-}
+}*/
 
-interface Command{
-    /**
-     * - deposit
-     * - withdraw
-     */
-    fun key(): String
 
-    fun handleInput(input: List<String>): Status
-
-    enum class Status {
-        INVALID,
-        HANDLED
-    }
-}
 
