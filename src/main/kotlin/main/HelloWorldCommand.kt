@@ -2,20 +2,21 @@ package main
 
 import javax.inject.Inject
 
-class HelloWorldCommand @Inject constructor(): Command {
+class HelloWorldCommand @Inject constructor(outputter: Outputter): Command {
 
-    override fun handleInput(input: List<String>): Command.Status {
+    private val myOutputter: Outputter = outputter
+
+    override fun handleInput(input: List<String>): Command.Result {
         if (input.isEmpty()) {
-            return Command.Status.INVALID
+            return Command.Result.invalid()
         }
 
-        print("world!")
+        myOutputter.output("world!")
 
-        return Command.Status.HANDLED
+        return Command.Result.handled()
     }
 
     override fun key(): String {
         return "Hello"
     }
-
 }

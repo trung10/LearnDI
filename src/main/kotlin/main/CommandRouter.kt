@@ -1,17 +1,16 @@
 package main
 
-import java.util.*
 import javax.inject.Inject
-import kotlin.collections.HashMap
 
-class CommandRouter @Inject constructor(helloWorldCommand: HelloWorldCommand) {
-    private val commands: Map<String, Command> = HashMap()
+class CommandRouter @Inject constructor(commands: Map<String, @JvmSuppressWildcards Command>) {
+    //private val commands: Map<String, Command> = HashMap()
+    private val commands: Map<String, Command> = commands
 
     init {
-        (commands as HashMap).put(helloWorldCommand.key(), helloWorldCommand)
+        //(commands as HashMap).put(command.key(), command)
     }
 
-    fun route(input: String): Command.Status {
+    fun route(input: String): Command.Result {
         val splitInput: List<String> = split(input)
 
         if (commands.isEmpty()){
@@ -21,18 +20,22 @@ class CommandRouter @Inject constructor(helloWorldCommand: HelloWorldCommand) {
         val commandKey: String = splitInput[0]
         val command: Command = commands[commandKey] ?: return invalidCommand(input)
 
-        val status: Command.Status =
-        command.handleInput(splitInput.subList(0, splitInput.size - 1))
-        if (status == Command.Status.INVALID) {
+        val result: Command.Result =
+        command.handleInput(splitInput.subList(1, splitInput.size))
+        /*if (result == Command.Status.INVALID) {
             print("$commandKey: invalid arguments")
-        }
-        return status
+        }*/
 
+        return if (result.status == Command.Status.INVALID){
+            invalidCommand(input)
+        } else {
+            result
+        }
     }
 
-    private fun invalidCommand(input: String): Command.Status{
+    private fun invalidCommand(input: String): Command.Result{
         print(String.format("couldn't understand \"%s\". please try again.", input))
-        return Command.Status.INVALID
+        return Command.Result.invalid()
     }
 
 
