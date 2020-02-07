@@ -1,9 +1,6 @@
 package main
 
-import dagger.Binds
-import dagger.Component
-import dagger.Module
-import dagger.Provides
+import dagger.*
 import dagger.multibindings.IntoMap
 import dagger.multibindings.StringKey
 import javax.inject.Inject
@@ -30,7 +27,7 @@ class SystemOutModule {
     }
 }
 
-@Module
+/*@Module
 abstract class HelloWorldModule {
     @Binds
     @IntoMap
@@ -52,13 +49,28 @@ abstract class DepositCommandModule {
     @IntoMap
     @StringKey("deposit")
     abstract fun loginCommand(command: DepositCommand): Command
-}
+}*/
 
 @Singleton
-@Component(modules =  [DepositCommandModule::class, LoginCommandModule::class, HelloWorldModule::class, SystemOutModule::class] )
+@Component(modules =  [UserCommandsModule::class, SystemOutModule::class] )
 interface CommandProcessorFactory {
     fun processor(): CommandProcessor
 }
+
+@Subcomponent(modules = [UserCommandsModule::class])
+interface UserCommandsRouter{
+    fun router(): CommandRouter
+
+    @Subcomponent.Factory
+    interface Factory {
+        fun create(@BindsInstance account: Account): UserCommandsRouter
+    }
+
+    @Module(subcomponents = [UserCommandsModule::class])
+    interface InstallationModule{}
+}
+
+
 
 fun main() {
     //val commandRouter: CommandRouter = CommandRouter()
