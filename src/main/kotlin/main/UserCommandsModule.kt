@@ -7,18 +7,20 @@ import dagger.multibindings.StringKey
 
 @Module
 interface UserCommandsModule {
-    @Binds
-    @IntoMap
-    @StringKey("hello")
-    abstract fun helloWorldCommand(command: HelloWorldCommand): Command
-
-    @Binds
-    @IntoMap
-    @StringKey("login")
-    abstract fun loginCommand(command: LoginCommand): Command
 
     @Binds
     @IntoMap
     @StringKey("deposit")
-    abstract fun loginCommand(command: DepositCommand): Command
+    fun depositCommand(command: DepositCommand): Command
+
+    @Binds
+    @IntoMap
+    @StringKey("withdraw")
+    fun withdrawCommand(command: WithdrawCommand): Command
+
+    @Binds
+    @IntoMap
+    @StringKey("logout")
+    fun logoutrawCommand(command: LogoutCommand): Command
+
 }

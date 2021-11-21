@@ -1,7 +1,5 @@
 package main
 
-import javax.inject.Inject
-
 abstract class SingleArgCommand : Command{
 
     override fun handleInput(input: List<String>): Command.Result {

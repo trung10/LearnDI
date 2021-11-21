@@ -2,8 +2,7 @@ package main
 
 import java.math.BigDecimal
 
-abstract class BigDecimalCommand constructor(outputter: Outputter): SingleArgCommand() {
-    private val outputter: Outputter = outputter
+abstract class BigDecimalCommand constructor(private val outputter: Outputter): SingleArgCommand() {
 
     override fun handleArg(arg: String): Command.Result {
         val amount: BigDecimal? = tryParse(arg)

@@ -3,13 +3,14 @@ package main
 import java.math.BigDecimal
 import javax.inject.Inject
 
-class DepositCommand @Inject constructor(
+class WithdrawCommand @Inject constructor(
     private val account: Database.Account,
     private val outputter: Outputter)
-    : BigDecimalCommand(outputter){
+    : BigDecimalCommand(outputter) {
 
     override fun handleAmount(amount: BigDecimal) {
-        account.deposit(amount)
-        outputter.output("${account.username() } now has: ${account.balance()}")
+        account.withdraw(amount)
+        outputter.output("your new balance is: ${account.balance()}")
     }
+
 }

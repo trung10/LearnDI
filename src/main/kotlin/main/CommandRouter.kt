@@ -2,13 +2,9 @@ package main
 
 import javax.inject.Inject
 
-class CommandRouter @Inject constructor(commands: Map<String, @JvmSuppressWildcards Command>) {
-    //private val commands: Map<String, Command> = HashMap()
-    private val commands: Map<String, Command> = commands
-
-    init {
-        //(commands as HashMap).put(command.key(), command)
-    }
+class CommandRouter @Inject constructor(
+    private val commands: Map<String, @JvmSuppressWildcards Command>,
+    private val outputter: Outputter) {
 
     fun route(input: String): Command.Result {
         val splitInput: List<String> = split(input)
@@ -34,7 +30,7 @@ class CommandRouter @Inject constructor(commands: Map<String, @JvmSuppressWildca
     }
 
     private fun invalidCommand(input: String): Command.Result{
-        print(String.format("couldn't understand \"%s\". please try again.", input))
+        outputter.output(String.format("Couldn't understand \"%s\". Please try again.", input))
         return Command.Result.invalid()
     }
 

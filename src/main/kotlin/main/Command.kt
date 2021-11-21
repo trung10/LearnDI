@@ -1,38 +1,28 @@
 package main
 
-import java.util.*
-
 interface Command {
 
     fun handleInput(input: List<String>): Result
-
-    class Result(val status: Status, val nestedCommandRouter: Optional<CommandRouter>){
+    
+    class Result(val status: Status, val nestedCommandRouter: CommandRouter? = null){
         companion object {
-            fun enterNestedCommandSet(nestedCommandRouter: CommandRouter): Result{
-                return Result(Status.HANDLED, Optional.of(nestedCommandRouter))
+            fun enterNestedCommandSet(nestedCommandRouter: CommandRouter?): Result{
+                return Result(Status.HANDLED, nestedCommandRouter)
             }
 
             fun invalid(): Result{
-                return Result(Status.INVALID, Optional.empty())
+                return Result(Status.INVALID)
             }
 
             fun handled(): Result {
-                return Result(Status.HANDLED, Optional.empty())
+                return Result(Status.HANDLED)
             }
 
             fun inputCompleted(): Result {
-                return Result(Status.INPUT_COMPLETED, Optional.empty())
+                return Result(Status.INPUT_COMPLETED)
             }
         }
     }
-
-    /**
-     * - deposit
-     * - withdraw
-     */
-    fun key(): String
-
-    //fun handleInput(input: List<String>): Status
 
     enum class Status {
         INVALID,
