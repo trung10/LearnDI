@@ -3,7 +3,7 @@ package main
 interface Command {
 
     fun handleInput(input: List<String>): Result
-    
+
     class Result(val status: Status, val nestedCommandRouter: CommandRouter? = null){
         companion object {
             fun enterNestedCommandSet(nestedCommandRouter: CommandRouter?): Result{

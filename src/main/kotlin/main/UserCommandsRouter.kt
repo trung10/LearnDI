@@ -8,7 +8,8 @@ import dagger.Subcomponent
 // when creating instances for this subcomponent only. Just like @Component,
 // it can take a list of modules: we’ve moved the UserCommandsModule
 // that declares our DepositCommand here.
-@Subcomponent(modules = [AccountModule::class, UserCommandsModule::class])
+@PerSession
+@Subcomponent(modules = [AccountModule::class, AmountsModule::class, UserCommandsModule::class])
 interface UserCommandsRouter{
 
     // method declares what object we want Dagger to create.
