@@ -22,8 +22,7 @@ Parameters to an @Inject constructor are the dependencies of the class. Dagger w
 
 `@Provides` methods can contain arbitrary code as long as they return an instance of the provided type. They do not need to create a new instance on each invocation.
 
-    This highlights an important aspect of Dagger (and dependency injection as a whole): when a type is requested, whether or not a new instance is created to satisfy that request is an implementation detail. Going forward, we’ll use the term “provided” instead of “created”, as that is more accurate for what is happening.
-
+This highlights an important aspect of Dagger (and dependency injection as a whole): when a type is requested, whether or not a new instance is created to satisfy that request is an implementation detail. Going forward, we’ll use the term “provided” instead of “created”, as that is more accurate for what is happening.
 #### @IntoMap @IntoSet
 `@IntoMap` allows for the creation of a map with values of a specific type, with keys set using special annotations such as @StringKey or `@IntKey`. Because keys are set via annotation, Dagger ensures that multiple values are not mapped to the same key.
 
